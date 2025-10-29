@@ -1,0 +1,23 @@
+{
+  "name": "Dutch Language Tutor J.𓅃",
+  "short_name": "Taalcoach",
+  "description": "An interactive AI-powered application for Spanish speakers to learn and practice Dutch conversation, structured by CEFR language levels (A1-C2), using Gemini's real-time audio capabilities.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
