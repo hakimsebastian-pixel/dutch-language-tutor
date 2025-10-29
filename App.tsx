@@ -35,7 +35,7 @@ import WordDefinitionModal from './components/WordDefinitionModal';
 import ChatView from './components/ChatView';
 import ThemeSelector from './components/ThemeSelector';
 import PlaybackSpeedSelector from './components/PlaybackSpeedSelector';
-import { HomeIcon, DashboardIcon, HistoryIcon, ChatIcon } from './components/Icons';
+import { HomeIcon, DashboardIcon, HistoryIcon, ChatIcon, WarningIcon } from './components/Icons';
 
 type AppView = 'setup' | 'session' | 'summary' | 'history' | 'dashboard' | 'chat';
 
@@ -400,6 +400,22 @@ const App: React.FC = () => {
         </button>
     );
 
+    // FIX: Add a check for the API key to prevent a blank screen on deployment.
+    if (!process.env.API_KEY) {
+        return (
+            <div style={styles.apiKeyMissingContainer}>
+                <div style={styles.apiKeyMissingBox}>
+                    <WarningIcon />
+                    <h2 style={{ marginTop: '15px' }}>Configuratie Vereist</h2>
+                    <p>De Gemini API-sleutel is niet geconfigureerd.</p>
+                    <p style={{ marginTop: '10px', opacity: 0.8 }}>
+                        Om dit op te lossen, voeg een omgevingsvariabele toe met de naam <strong>API_KEY</strong> in je Vercel-projectinstellingen en deploy opnieuw.
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div style={styles.app}>
             <header style={styles.header}>
@@ -448,7 +464,28 @@ const styles: { [key: string]: React.CSSProperties } = {
   footer: { flexShrink: 0 },
   setupContainer: { maxWidth: '600px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '25px', textAlign: 'center' },
   startButton: { padding: '15px 30px', fontSize: '1.2em', cursor: 'pointer', border: 'none', borderRadius: '8px', backgroundColor: 'var(--color-primary)', color: 'var(--color-primary-text)', fontWeight: 'bold', marginTop: '10px' },
-  sessionControls: { display: 'flex', justifyContent: 'center', padding: '10px 0' }
+  sessionControls: { display: 'flex', justifyContent: 'center', padding: '10px 0' },
+  apiKeyMissingContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    backgroundColor: 'var(--color-bg)',
+    color: 'var(--color-text)',
+    padding: '20px',
+  },
+  apiKeyMissingBox: {
+    textAlign: 'center',
+    backgroundColor: 'var(--color-secondary-bg)',
+    padding: '40px',
+    borderRadius: '12px',
+    border: '1px solid var(--color-border)',
+    maxWidth: '500px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '10px'
+  },
 };
 
 const styleEl = document.createElement('style');

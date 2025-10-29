@@ -1,11 +1,9 @@
 import { GoogleGenAI, Type, LiveServerMessage, Modality, Blob } from "@google/genai";
 import { CEFRLevel, ActivityMode, Transcript, WordDefinition, SessionSummary } from "../types";
 
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set. Please set it in your environment.");
-}
-
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// FIX: Do not throw a top-level error, as it crashes the app.
+// The UI will handle the missing key case gracefully.
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "" });
 
 export interface LiveSession {
   sendRealtimeInput(input: { media: Blob }): void;
